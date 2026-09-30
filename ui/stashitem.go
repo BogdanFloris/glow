@@ -75,7 +75,7 @@ func stashItemView(b *strings.Builder, m stashModel, index int, md *markdown) {
 		} else {
 			icon = styles.greenFg(icon)
 
-			s := lipgloss.NewStyle().Foreground(styles.adaptive("#1a1a1a", "#dddddd"))
+			s := lipgloss.NewStyle().Foreground(styles.adaptive("#3c3836", "#ebdbb2"))
 			title = styleFilteredText(title, m.filterInput.Value(), s, s.Underline(true))
 			date = styles.grayFg(date)
 			editedBy = styles.midGrayFg(editedBy)

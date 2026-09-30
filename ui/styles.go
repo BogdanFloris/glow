@@ -57,29 +57,29 @@ func newStyles(isDark bool) Styles {
 	s := Styles{lightDark: lipgloss.LightDark(isDark)}
 
 	// Colors
-	normalDim := s.adaptive("#A49FA5", "#777777")
-	gray := s.adaptive("#909090", "#626262")
-	midGray := s.adaptive("#B2B2B2", "#4A4A4A")
-	darkGray := s.adaptive("#DDDADA", "#3C3C3C")
-	brightGray := s.adaptive("#847A85", "#979797")
-	dimBrightGray := s.adaptive("#C2B8C2", "#4D4D4D")
-	cream := s.adaptive("#FFFDF5", "#FFFDF5")
-	yellowGreen := s.adaptive("#04B575", "#ECFD65")
-	s.fuchsia = s.adaptive("#EE6FF8", "#EE6FF8")
-	dimFuchsia := s.adaptive("#F1A8FF", "#99519E")
-	dullFuchsia := s.adaptive("#F793FF", "#AD58B4")
-	dimDullFuchsia := s.adaptive("#F6C9FF", "#7B4380")
-	green := lipgloss.Color("#04B575")
-	red := s.adaptive("#FF4672", "#ED567A")
-	semiDimGreen := s.adaptive("#35D79C", "#036B46")
-	dimGreen := s.adaptive("#72D2B0", "#0B5137")
+	normalDim := s.adaptive("#7c6f64", "#a89984")
+	gray := s.adaptive("#928374", "#928374")
+	midGray := s.adaptive("#a89984", "#7c6f64")
+	darkGray := s.adaptive("#d5c4a1", "#504945")
+	brightGray := s.adaptive("#665c54", "#d5c4a1")
+	dimBrightGray := s.adaptive("#bdae93", "#665c54")
+	cream := s.adaptive("#fbf1c7", "#fbf1c7")
+	yellowGreen := s.adaptive("#98971a", "#b8bb26")
+	s.fuchsia = s.adaptive("#d65d0e", "#fe8019")
+	dimFuchsia := s.adaptive("#d79921", "#fabd2f")
+	dullFuchsia := s.adaptive("#d65d0e", "#fe8019")
+	dimDullFuchsia := s.adaptive("#bdae93", "#a89984")
+	green := lipgloss.Color("#b8bb26")
+	red := s.adaptive("#cc241d", "#fb4934")
+	semiDimGreen := s.adaptive("#98971a", "#98971a")
+	dimGreen := s.adaptive("#689d6a", "#689d6a")
 
 	// Pager colors
-	mintGreen := s.adaptive("#89F0CB", "#89F0CB")
-	darkGreen := s.adaptive("#1C8760", "#1C8760")
-	lineNumberFg := s.adaptive("#656565", "#7D7D7D")
-	statusBarNoteFg := s.adaptive("#656565", "#7D7D7D")
-	statusBarBg := s.adaptive("#E6E6E6", "#242424")
+	mintGreen := s.adaptive("#fbf1c7", "#fbf1c7")
+	darkGreen := s.adaptive("#689d6a", "#689d6a")
+	lineNumberFg := s.adaptive("#928374", "#7c6f64")
+	statusBarNoteFg := s.adaptive("#504945", "#d5c4a1")
+	statusBarBg := s.adaptive("#ebdbb2", "#3c3836")
 
 	// Render-func styles
 	s.dimNormalFg = lipgloss.NewStyle().Foreground(normalDim).Render
@@ -98,15 +98,15 @@ func newStyles(isDark bool) Styles {
 	s.redFg = lipgloss.NewStyle().Foreground(red).Render
 
 	// Named styles
-	s.tabStyle = lipgloss.NewStyle().Foreground(s.adaptive("#909090", "#626262"))
-	s.selectedTabStyle = lipgloss.NewStyle().Foreground(s.adaptive("#333333", "#979797"))
+	s.tabStyle = lipgloss.NewStyle().Foreground(s.adaptive("#928374", "#928374"))
+	s.selectedTabStyle = lipgloss.NewStyle().Foreground(s.adaptive("#3c3836", "#ebdbb2"))
 	s.errorTitleStyle = lipgloss.NewStyle().Foreground(cream).Background(red).Padding(0, 1)
-	s.subtleStyle = lipgloss.NewStyle().Foreground(s.adaptive("#9B9B9B", "#5C5C5C"))
+	s.subtleStyle = lipgloss.NewStyle().Foreground(s.adaptive("#928374", "#665c54"))
 	s.paginationStyle = s.subtleStyle
 
 	// Pager styles
 	s.statusBarScrollPosStyle = lipgloss.NewStyle().
-		Foreground(s.adaptive("#949494", "#5A5A5A")).
+		Foreground(s.adaptive("#7c6f64", "#a89984")).
 		Background(statusBarBg).
 		Render
 
@@ -117,7 +117,7 @@ func newStyles(isDark bool) Styles {
 
 	s.statusBarHelpStyle = lipgloss.NewStyle().
 		Foreground(statusBarNoteFg).
-		Background(s.adaptive("#DCDCDC", "#323232")).
+		Background(s.adaptive("#d5c4a1", "#504945")).
 		Render
 
 	s.statusBarMessageStyle = lipgloss.NewStyle().
@@ -131,13 +131,13 @@ func newStyles(isDark bool) Styles {
 		Render
 
 	s.statusBarMessageHelpStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#B6FFE4")).
+		Foreground(lipgloss.Color("#282828")).
 		Background(green).
 		Render
 
 	s.helpViewStyle = lipgloss.NewStyle().
 		Foreground(statusBarNoteFg).
-		Background(s.adaptive("#f2f2f2", "#1B1B1B")).
+		Background(s.adaptive("#f2e5bc", "#1d2021")).
 		Render
 
 	s.lineNumberStyle = lipgloss.NewStyle().
@@ -149,7 +149,7 @@ func newStyles(isDark bool) Styles {
 	s.dividerBar = s.darkGrayFg.SetString(" │ ")
 
 	s.logoStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#ECFD65")).
+		Foreground(lipgloss.Color("#282828")).
 		Background(s.fuchsia).
 		Bold(true)
 

@@ -4,7 +4,7 @@ import "charm.land/lipgloss/v2"
 
 var (
 	keyword = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#04B575")).
+		Foreground(lipgloss.Color("#b8bb26")).
 		Render
 
 	paragraph = lipgloss.NewStyle().

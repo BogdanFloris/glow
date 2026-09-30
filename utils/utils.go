@@ -125,6 +125,7 @@ func styleConfigFor(style string, isCode bool) (ansi.StyleConfig, error) {
 }
 
 func styleConfigFromFile(path string) (ansi.StyleConfig, error) {
+	path = ExpandPath(path)
 	jsonBytes, err := os.ReadFile(path) //nolint:gosec
 	if err != nil {
 		return ansi.StyleConfig{}, fmt.Errorf("glamour: error reading file: %w", err)
