@@ -2,6 +2,7 @@
 package utils
 
 import (
+	_ "embed"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -15,6 +16,18 @@ import (
 	"charm.land/lipgloss/v2"
 	"github.com/mitchellh/go-homedir"
 )
+
+//go:embed gruvbox.json
+var gruvboxStyleJSON []byte
+
+func init() {
+	var cfg ansi.StyleConfig
+	if err := json.Unmarshal(gruvboxStyleJSON, &cfg); err == nil {
+		styles.DefaultStyles["gruvbox"] = &cfg
+		styles.DefaultStyles["gruvbox-dark"] = &cfg
+		styles.DefaultStyles[styles.DarkStyle] = &cfg
+	}
+}
 
 // RemoveFrontmatter removes the front matter header of a markdown file.
 func RemoveFrontmatter(content []byte) []byte {
@@ -81,6 +94,9 @@ func GlamourStyle(style string, isCode bool) glamour.TermRendererOption {
 		if !isCode && TextSizingEnabled() {
 			AddHeadingSizeMarkers(&styleConfig)
 		}
+		if err := glamour.WithChromaFormatter("terminal16m")(tr); err != nil {
+			return fmt.Errorf("glamour: error setting chroma formatter: %w", err)
+		}
 		if err := glamour.WithStyles(styleConfig)(tr); err != nil {
 			return fmt.Errorf("glamour: error applying styles: %w", err)
 		}
@@ -101,6 +117,7 @@ func styleConfigFor(style string, isCode bool) (ansi.StyleConfig, error) {
 
 	// If we are rendering a pure code block, we need to modify the style to
 	// remove the indentation.
+	var styleConfig ansi.StyleConfig
 	switch style {
 	case "auto":
 		if lipgloss.HasDarkBackground(os.Stdin, os.Stdout) {
@@ -108,15 +125,20 @@ func styleConfigFor(style string, isCode bool) (ansi.StyleConfig, error) {
 		} else {
 			style = styles.LightStyle
 		}
+		styleConfig = *styles.DefaultStyles[style]
 	case styles.TokyoNightStyle:
-		style = styles.DraculaStyle
-	case styles.DarkStyle, styles.LightStyle, styles.PinkStyle,
-		styles.NoTTYStyle, styles.DraculaStyle:
+		styleConfig = *styles.DefaultStyles[styles.DraculaStyle]
 	default:
-		return styleConfigFromFile(style)
+		if cfg, ok := styles.DefaultStyles[style]; ok {
+			styleConfig = *cfg
+		} else {
+			var err error
+			styleConfig, err = styleConfigFromFile(style)
+			if err != nil {
+				return ansi.StyleConfig{}, err
+			}
+		}
 	}
-
-	styleConfig := *styles.DefaultStyles[style]
 
 	var margin uint
 	styleConfig.CodeBlock.Margin = &margin

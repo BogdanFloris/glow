@@ -35,26 +35,11 @@ func TextSizingEnabled() bool {
 
 func detectTextSizing() bool {
 	switch strings.ToLower(strings.TrimSpace(os.Getenv("GLOW_TEXT_SIZING"))) {
-	case "0", "false", "off", "no":
-		return false
 	case "1", "true", "on", "yes":
 		return true
-	}
-
-	if !term.IsTerminal(int(os.Stdout.Fd())) {
+	default:
 		return false
 	}
-	if termEnv := os.Getenv("TERM"); termEnv == "" || termEnv == "dumb" {
-		return false
-	}
-
-	if supported, decisive := probeTextSizing(); decisive {
-		return supported
-	}
-
-	return os.Getenv("KITTY_WINDOW_ID") != "" ||
-		os.Getenv("TERM_PROGRAM") == "kitty" ||
-		strings.Contains(os.Getenv("TERM"), "kitty")
 }
 
 var cprPattern = regexp.MustCompile(`\x1b\[(\d+);(\d+)R`)
